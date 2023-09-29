@@ -3,3 +3,10 @@
 /build/
 /shared/build/
 /shared/build/intermediates/javac/debug/classes/
+/local.properties
+/.idea/caches
+/.idea/libraries
+/.idea/modules.xml
+/.idea/workspace.xml
+/.idea/navEditor.xml
+/.idea/assetWizardSettings.xml
