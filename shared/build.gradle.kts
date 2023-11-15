@@ -8,6 +8,7 @@ plugins {
     id("maven-publish")
     id("com.google.dagger.hilt.android")
     id("com.jfrog.artifactory")
+    id("com.chromaticnoise.multiplatform-swiftpackage") version "2.0.3"
 }
 
 group = "me.sokolovavita.kmp-shared" // Change this to your group ID
@@ -51,15 +52,20 @@ kotlin {
         }
     }
 
-//    listOf(
-//        iosX64(),
-//        iosArm64(),
-//        iosSimulatorArm64()
-//    ).forEach {
-//        it.binaries.framework {
-//            baseName = "shared"
-//        }
-//    }
+    listOf(
+        iosX64(),
+        iosArm64(),
+        iosSimulatorArm64()
+    ).forEach {
+        multiplatformSwiftPackage {
+            packageName("KMPShared")
+            swiftToolsVersion("5.7")
+            targetPlatforms {
+                iOS { v("15") }
+            }
+            outputDirectory(File(rootDir, "/"))
+        }
+    }
 
     val ktorVersion = "2.3.2"
     val koinVersion = "3.5.0"
