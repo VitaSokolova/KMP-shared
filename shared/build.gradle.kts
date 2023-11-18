@@ -8,6 +8,8 @@ plugins {
     id("maven-publish")
     id("com.google.dagger.hilt.android")
     id("com.jfrog.artifactory")
+    id("co.touchlab.kmmbridge")
+    id("co.touchlab.skie")
 }
 
 group = "me.sokolovavita.kmp-shared" // Change this to your group ID
@@ -40,7 +42,7 @@ kotlin {
 
     targetHierarchy.default()
 
-    android {
+    androidTarget {
 
         publishLibraryVariants("release", "debug")
 
@@ -51,15 +53,17 @@ kotlin {
         }
     }
 
-//    listOf(
-//        iosX64(),
-//        iosArm64(),
-//        iosSimulatorArm64()
-//    ).forEach {
-//        it.binaries.framework {
-//            baseName = "shared"
-//        }
-//    }
+    listOf(
+        iosX64(),
+        iosArm64(),
+        iosSimulatorArm64()
+    ).forEach {
+        it.binaries.framework {
+            baseName = "shared"
+//            export(project(":shared"))
+            isStatic = true
+        }
+    }
 
     val ktorVersion = "2.3.2"
     val koinVersion = "3.5.0"
@@ -94,6 +98,12 @@ kotlin {
                 )
             }
         }
+
+        val iosMain by getting {
+            dependencies {
+                implementation("io.ktor:ktor-client-darwin:$ktorVersion")
+            }
+        }
     }
 }
 
@@ -103,4 +113,11 @@ android {
     defaultConfig {
         minSdk = 24
     }
+}
+
+addGithubPackagesRepository()
+
+kmmbridge {
+    mavenPublishArtifacts()
+    spm()
 }
