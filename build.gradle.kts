@@ -1,6 +1,6 @@
 plugins {
     //trick: for the same plugin versions in all sub-modules
-    id("com.android.library").version("8.1.1").apply(false)
+    id("com.android.library").version("8.1.0").apply(false)
     kotlin("multiplatform").version("1.9.20").apply(false)
     id("com.google.dagger.hilt.android") version "2.44" apply false
     id ("org.jetbrains.kotlin.plugin.serialization") version "1.9.20" apply false
