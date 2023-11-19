@@ -4,7 +4,6 @@ plugins {
     kotlin("multiplatform").version("1.9.20").apply(false)
     id("com.google.dagger.hilt.android") version "2.44" apply false
     id ("org.jetbrains.kotlin.plugin.serialization") version "1.9.20" apply false
-    id("com.jfrog.artifactory") version "4.13.0" apply false
     id("co.touchlab.kmmbridge") version "0.5.1" apply false
     id("co.touchlab.skie") version "0.5.5" apply false
 }

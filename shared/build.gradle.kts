@@ -1,5 +1,3 @@
-import com.android.build.gradle.internal.cxx.configure.gradleLocalProperties
-
 plugins {
     kotlin("multiplatform")
     kotlin("kapt")
@@ -7,33 +5,8 @@ plugins {
     id("com.android.library")
     id("maven-publish")
     id("com.google.dagger.hilt.android")
-    id("com.jfrog.artifactory")
     id("co.touchlab.kmmbridge")
     id("co.touchlab.skie")
-}
-
-group = "me.sokolovavita.kmp-shared" // Change this to your group ID
-version = "1.0.0" // Change this to your version
-
-artifactory {
-    val artifactoryContextUrl: String = gradleLocalProperties(rootDir).getProperty("artifactory_contextUrl")
-    val artifactoryUser: String = gradleLocalProperties(rootDir).getProperty("artifactory_user")
-    val artifactoryPassword: String = gradleLocalProperties(rootDir).getProperty("artifactory_password")
-    setContextUrl(artifactoryContextUrl)
-    publish(delegateClosureOf<org.jfrog.gradle.plugin.artifactory.dsl.PublisherConfig> {
-        repository(delegateClosureOf<org.jfrog.gradle.plugin.artifactory.dsl.DoubleDelegateWrapper> {
-            setProperty("repoKey", "gradle-dev-local")
-            setProperty("username", artifactoryUser)
-            setProperty("password", artifactoryPassword)
-            setProperty("maven", true)
-        })
-        defaults(delegateClosureOf<groovy.lang.GroovyObject> {
-            invokeMethod("publications", arrayOf(
-                "androidDebug", "androidRelease", "kotlinMultiplatform", "metadata"
-            ))
-            invokeMethod("publishPom", true)
-        })
-    })
 }
 
 @OptIn(org.jetbrains.kotlin.gradle.ExperimentalKotlinGradlePluginApi::class)
